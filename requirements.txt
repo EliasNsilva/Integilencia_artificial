@@ -1,0 +1,6 @@
+decision_tree_id3==0.1.2
+matplotlib==3.5.2
+pandas==1.4.2
+scikit_learn==1.1.1
+six==1.14.0
+wittgenstein==0.3.2

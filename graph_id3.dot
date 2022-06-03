@@ -1,0 +1,59 @@
+digraph ID3_Tree {
+"0" [shape=box, style=filled, label="renda_acima de 35k
+", weight=1]
+"1" [shape=box, style=filled, label="renda_0 a 15k
+", weight=2]
+0 -> 1 [ label = "<=0.50"];
+"2" [shape=box, style=filled, label="divida_alta
+", weight=3]
+1 -> 2 [ label = "<=0.50"];
+"3" [shape=box, style=filled, label="moderado
+(3)
+", weight=4]
+2 -> 3 [ label = "<=0.50"];
+"4" [shape=box, style=filled, label="historico_boa
+", weight=4]
+2 -> 4 [ label = ">0.50"];
+"5" [shape=box, style=filled, label="alto
+(2)
+", weight=5]
+4 -> 5 [ label = "<=0.50"];
+"6" [shape=box, style=filled, label="moderado
+(1)
+", weight=5]
+4 -> 6 [ label = ">0.50"];
+"7" [shape=box, style=filled, label="garantia_adequada
+", weight=3]
+1 -> 7 [ label = ">0.50"];
+"8" [shape=box, style=filled, label="alto
+(5)
+", weight=4]
+7 -> 8 [ label = "<=0.50"];
+"9" [shape=box, style=filled, label="divida_alta
+", weight=4]
+7 -> 9 [ label = ">0.50"];
+"10" [shape=box, style=filled, label="alto
+(1)
+", weight=5]
+9 -> 10 [ label = "<=0.50"];
+"11" [shape=box, style=filled, label="alto
+(1/1)
+", weight=5]
+9 -> 11 [ label = ">0.50"];
+"12" [shape=box, style=filled, label="historico_ruim
+", weight=2]
+0 -> 12 [ label = ">0.50"];
+"13" [shape=box, style=filled, label="baixo
+(5)
+", weight=3]
+12 -> 13 [ label = "<=0.50"];
+"14" [shape=box, style=filled, label="moderado
+(1)
+", weight=3]
+12 -> 14 [ label = ">0.50"];
+{rank=same; 0;};
+{rank=same; 1;12;};
+{rank=same; 2;7;13;14;};
+{rank=same; 3;4;8;9;};
+{rank=same; 5;6;10;11;};
+}
