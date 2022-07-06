@@ -12,16 +12,16 @@
 #    Object Properties
 #################################################################
 
+###  http://www.semanticweb.org/elias/ontologies/2022/6/untitled-ontology-2#cursa
+:cursa rdf:type owl:ObjectProperty ;
+       rdfs:domain :Aluno ;
+       rdfs:range :Curso .
+
+
 ###  http://www.semanticweb.org/elias/ontologies/2022/6/untitled-ontology-2#estudaEm
 :estudaEm rdf:type owl:ObjectProperty ;
           rdfs:domain :Aluno ;
           rdfs:range :Universidade .
-
-
-###  http://www.semanticweb.org/elias/ontologies/2022/6/untitled-ontology-2#faz
-:faz rdf:type owl:ObjectProperty ;
-     rdfs:domain :Aluno ;
-     rdfs:range :Curso .
 
 
 #################################################################
@@ -73,14 +73,14 @@
 ###  http://www.semanticweb.org/elias/ontologies/2022/6/untitled-ontology-2#Maria
 :Maria rdf:type owl:NamedIndividual ,
                 :Mestrando ;
-       :faz :Engenharia_da_computação .
+       :estudaEm :Ufal .
 
 
 ###  http://www.semanticweb.org/elias/ontologies/2022/6/untitled-ontology-2#Pedro
 :Pedro rdf:type owl:NamedIndividual ,
                 :Graduando ;
-       :estudaEm :Ufal ;
-       :faz :Ciencia_da_computação .
+       :cursa :Ciencia_da_computação ;
+       :estudaEm :Ufal .
 
 
 ###  http://www.semanticweb.org/elias/ontologies/2022/6/untitled-ontology-2#Ufal
