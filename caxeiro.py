@@ -13,11 +13,13 @@ distancia = [[0, 30, 84, 56, None, None, None, 75, None, 80],
             [None, None, 143, None, 98, 82, 120, None, 0, None],
             [80, 40, 48, None, 80, 35, 57, None, None, 0]]
 
-def verifyNew(matriz, cidade_inicial, cidades, solucao):
+# verifica se a cidade é valida
+def nova_cd_valida(matriz, cidade_inicial, cidades, solucao):
     ct = copy.deepcopy(cidades)
 
     while(len(ct) > 0):
         cidade_aleatoria = ct[random.randint(0, len(ct) - 1)]
+
         if matriz[cidade_inicial][cidade_aleatoria] == None:
             ct.remove(cidade_aleatoria)
 
@@ -25,12 +27,13 @@ def verifyNew(matriz, cidade_inicial, cidades, solucao):
                 return -1
         else:
             if len(ct) == 1:
+                #se for a ultima cidade verifica a possibilidade de voltar pra inicial  
                 if matriz[cidade_aleatoria][solucao[0]] == None:
                     return -1
-            
             return cidade_aleatoria
+    return -1
 
-
+#gera uma solução aleatória 
 def solucao_aleatoria(matriz):
     cidades = list(range(len(matriz)))
     solucao = []
@@ -41,7 +44,7 @@ def solucao_aleatoria(matriz):
     i = 0
 
     while i < len(matriz):
-        cidade_aleatoria = verifyNew(matriz, cidade_inicial, cidades, solucao)
+        cidade_aleatoria = nova_cd_valida(matriz, cidade_inicial, cidades, solucao)
         if cidade_aleatoria == -1:
             i = 0
             cidades = list(range(len(matriz)))
@@ -51,8 +54,11 @@ def solucao_aleatoria(matriz):
             cidades.remove(cidade_aleatoria)
             cidade_inicial = cidade_aleatoria
             i = i + 1
+
+    solucao.append(solucao[0])
     return solucao
 
+#gera uma nova solução a partir de uma prêvia 
 def variar_solucao(matriz, solucao):
     cidade_inicial = solucao[-1]
     sol = copy.deepcopy(solucao)
@@ -63,7 +69,7 @@ def variar_solucao(matriz, solucao):
 
     while i < len(matriz) - len(solucao):
         
-        cidade_aleatoria = verifyNew(matriz, cidade_inicial, cidades, sol)
+        cidade_aleatoria = nova_cd_valida(matriz, cidade_inicial, cidades, sol)
         if cidade_aleatoria == -1:
             return -1
         else:
@@ -72,18 +78,21 @@ def variar_solucao(matriz, solucao):
             cidade_inicial = cidade_aleatoria
             i = i + 1
 
+    sol.append(sol[0])
     return sol
 
-def tamanho_rota(matriz, solucao):
-    tamanho_rota = 0
+#calcula o custo da rota
+def cal_custo(matriz, solucao):
+    custo = 0
 
     for i in range(len(solucao) -2):
-        tamanho_rota += matriz[solucao[i]][solucao[i+1]]
-    return tamanho_rota
+        custo += matriz[solucao[i]][solucao[i+1]]
+    return custo
 
 def hillClimbing(matriz):
     melhor = solucao_aleatoria(matriz)
-    print(f"Solução inicial: {melhor} distância: {tamanho_rota(matriz, melhor)}")
+
+    print(f"Solução inicial: {melhor} distância: {cal_custo(matriz, melhor)}")
 
     x = 0
     novo = -1
@@ -92,12 +101,12 @@ def hillClimbing(matriz):
             novo = variar_solucao(matriz, melhor[0:5])
             if novo != -1:
                 break
-        if tamanho_rota(matriz, novo) < tamanho_rota(matriz, melhor):
-            print(f"Novo melhor: {novo} distância: {tamanho_rota(matriz, novo)}")
+        if cal_custo(matriz, novo) < cal_custo(matriz, melhor):
+            print(f"Novo melhor: {novo} distância: {cal_custo(matriz, novo)}")
             melhor = copy.deepcopy(novo)
         x = x + 1
 
-    print(f"Solução final: {melhor} distância: {tamanho_rota(matriz, melhor)}")
+    print(f"Solução final: {melhor} distância: {cal_custo(matriz, melhor)}")
 
 
 hillClimbing(distancia)
